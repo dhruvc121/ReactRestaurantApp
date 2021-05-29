@@ -14,10 +14,35 @@ app.use(cookieparser())
 app.use(express.json())
 require('./db/conn.js')
 
+const transporter = nodemailer.createTransport({
+port: 465,               // true for 465, false for other ports
+host: "smtp.gmail.com",
+   auth: {
+        user: process.env.EMAIL,
+        pass: process.env.WORD,
+     },
+secure: true,
+});
+
+//router.post("/send",function (req,res){
+	
+	//})
+//const mailData = {
+//from: process.env.WORD,  // sender address
+  //to: 'jagrutichampaneri1@gmail.com',   // list of receivers
+  //subject: 'Sending Email using Node.js',
+  //text: 'lets try this again!',
+  //html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>',
+//};
+//transporter.sendMail(mailData, function (err, info) {
+   //if(err)
+     //console.log(err)
+   //else
+     //console.log(info);
+//});
 
 
-
-
+/*
 
 let transporter = nodemailer.createTransport({
  service: "gmail",
@@ -36,11 +61,11 @@ transporter.verify((err, success) => {
    ? console.log(err)
    : console.log(`=== Server is ready to take messages: ${success} ===`);
 });
-
+*/
 app.post("/send", function (req, res) {
  console.log(req.body)
  let mailOptions = {
-   from: "test@gmail.com",
+   from: process.env.EMAIL,
    to: process.env.EMAIL,
    subject: "Table Reservation",
    text: `A table reservation by ${req.body.reservee} for ${req.body.guests} guests on ${req.body.date},${req.body.time}.
@@ -62,12 +87,12 @@ app.post("/sendorder", function (req, res) {
  const email=req.body.email;
  let length=cart.length
  let mailOptions = {
-   from: "test@gmail.com",
+   from: process.env.EMAIL,
    to: process.env.EMAIL,
    subject: "Order",
    text: `An order is placed by ${req.body.email}.
 Order Details:
-Cart:${cart.forEach((item)=>{item.dishName,item.quantity})}
+Cart:${cart}
 Address:${req.body.order.address}
 Total:${req.body.order.total}
 Date:${req.body.order.date}`,

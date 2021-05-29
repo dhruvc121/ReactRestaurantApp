@@ -87,16 +87,16 @@ const Checkout=()=>{
 			if(res.status!==201||!userData){
 					window.alert("order place unsuccessful")
 				}else{
-					//window.alert("please wait... we are processing your request")
+					window.alert("please wait... we are processing your request")
 					
-					//const mailRes=await	fetch("http://localhost:3001/sendorder",{
-									//method:"POST",
-									//headers:{"Content-Type":"application/json"},
-									//body:JSON.stringify(
-									//{email,order}
-								//)
-							//})
-						//const mailData=await mailRes.json();
+					const mailRes=await	fetch("/sendorder",{
+									method:"POST",
+									headers:{"Content-Type":"application/json"},
+									body:JSON.stringify(
+									{email,order}
+								)
+							})
+						const mailData=await mailRes.json();
 					
 					window.alert("order place success")
 					setCart([]);
