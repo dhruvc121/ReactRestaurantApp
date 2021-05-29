@@ -40,9 +40,6 @@ function App() {
   <Route exact path="/itemdetails">
   <ItemDetail/>
   </Route>
-  <Route exact path="/cart">
-  <Cart/>
-  </Route>
   <Route exact path="/checkout">
   <Checkout/>
   </Route>
