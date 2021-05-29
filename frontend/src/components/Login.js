@@ -17,9 +17,6 @@ const Login=()=>{
 			if(email===process.env.REACT_APP_ADMIN_ID && password===process.env.REACT_APP_ADMIN_PASS){
 				history.push("/admin")
 				}else{
-			
-	
-			
 			const res=await	fetch("/login",{
 						method:"POST",
 					headers:{"Content-Type":"application/json"},
@@ -42,7 +39,6 @@ const Login=()=>{
 					setPassword("");}
 					history.push("/")
 			}}
-			console.log(cart)
 	return(<>
 	<h2 className="text-center my-3">Login Form</h2>
 	<Container className="shadow p-3 mt-5 login-form">
