@@ -14,6 +14,7 @@ import Admin from './components/Admin.js'
 import BookTable from './components/BookTable.js'
 import Menu from './components/Menu.js'
 import User from './components/User.js'
+import Footer from './components/footer.js'
 import ErrorPage from './components/ErrorPage.js'
 import {Button} from 'react-bootstrap'
 import {NavLink,Switch} from 'react-router-dom'
@@ -21,10 +22,12 @@ import {UserContext} from './context/userDetailContext.js'
 import {LoginStateContext} from './context/loginStateContext.js'
 
 
+
 function App() {
 	
   return(<>
   <Header/>
+  <div className="app-div">
   <Switch>
   <Route exact path="/">
   <Home/>
@@ -60,6 +63,8 @@ function App() {
   <ErrorPage/>
   </Route>
  </Switch>
+ </div>
+ <Footer/>
   </>);
 
 }

@@ -36,7 +36,7 @@ const Login=()=>{
 				}else{
 					window.alert("login success")
 					setLogin(true)
-					setCart(userData.cart)
+					setCart(userData.userExists.cart)
 					console.log(cart)
 					setEmail("");
 					setPassword("");}

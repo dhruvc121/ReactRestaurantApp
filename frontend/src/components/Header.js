@@ -46,7 +46,7 @@ const Header=()=>{
 		}
 	return(<>
 	<Navbar bg="light" expand="lg">
-  <Navbar.Brand><NavLink to="/" style={{color:"black",textDecoration:"none"}}>Restaurant OP</NavLink></Navbar.Brand>
+  <Navbar.Brand ><NavLink to="/" style={{color:"black",textDecoration:"none",marginLeft:"0.5rem"}}>Restaurant OP</NavLink></Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
@@ -56,7 +56,7 @@ const Header=()=>{
     </Nav>
     <span className={"username "+(login?'':'d-none')}>Hello! {user.name}</span>
    
-    <Button className={"mr-1 bg-light border-0 "+(login?'':'d-none ')}>
+    <Button className={"bg-light border-0 user-icon "+(login?'':'d-none ')}>
     <NavLink to="/userinfo" style={{color:"black"}}>
     <FontAwesomeIcon icon={faUser} size="1x"/>				
 	</NavLink>
@@ -65,7 +65,7 @@ const Header=()=>{
 
    
 	
-	<Button className={"mr-1 bg-light border-0 cart-icon "+(login?'':'d-none ')}>
+	<Button className={"bg-light border-0 cart-icon "+(login?'':'d-none ')}>
 				<NavLink to="/checkout" style={{color:"black",textDecoration:"none"}}>
 					<FontAwesomeIcon icon={faShoppingCart} size="1.5x" />
 					<div className={""+(!cart?'':'cartIndicator')}></div>

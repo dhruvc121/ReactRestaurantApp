@@ -1,5 +1,5 @@
 import React,{useState,useContext,useEffect} from 'react';
-import {Button} from 'react-bootstrap'
+import {Button,Container} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import Card from './Card.js'
 import data from '../context/data.js'
@@ -9,7 +9,8 @@ import {LoginStateContext} from '../context/loginStateContext.js'
 const Menu=()=>{
 	const [login,setLogin]=useContext(LoginStateContext);
 	
-	return(<>  
+	return(<> 
+	<Container className="menu-container"> 
 	<h2 className="m-2">Apetizers</h2>
 	 <div className="display-div overflow-auto">
 	{ 
@@ -209,6 +210,7 @@ const Menu=()=>{
 		 })
 	 }
 	 </div>
+	 </Container>
 	</>)
 	}
 export default Menu

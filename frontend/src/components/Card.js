@@ -22,8 +22,8 @@ const Cards=(props)=>{
 		<Card xs={12} className="m-1 p-0 mcard shadow-sm" style={{width:"30rem"}} onClick={itemdetail}>
 		  <Card.Img variant="top" className="card-img img-fluid menucard" src={props.img_src} />
 		  <Card.Body className="p-1" style={{display:"flex"}}>
-			<p className="p-1">{props.dishName}</p>
-			<p className="ml-auto p-1">{props.rating}<FontAwesomeIcon icon={faStar} className="star"/ ></p>
+			<p className="p-1"><b>{props.dishName}</b></p>
+			<p className="card-rating p-1"><b>{props.rating}</b><FontAwesomeIcon icon={faStar} className="star"/ ></p>
 		  </Card.Body>
 		</Card>
 		

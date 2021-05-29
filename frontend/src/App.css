@@ -2,12 +2,24 @@
 	padding:0px;
 	margin:0px;
 	box-sizing:border-box;
-}																 																	
+}	
+body{
+	display:flex;
+	flex-direction:column;
+	min-height:100%;
+}	
+.app-div{
+	min-height:90vh;
+}														 																	
 .home-container{
+	margin-left:10%;
+	margin-top:10%;
 	padding:2rem;
-	position:absolute;
-	top:25%;
-	left:10%;
+}
+.checkout-container{
+/*
+	min-height:100vh;
+*/
 }
 .display-div{
 	width:100%;
@@ -16,7 +28,8 @@
 	overflow:auto!important;
 }
 .order-btn{
-	margin-left:1rem;
+	float:right;
+	margin-right:.5rem;
 }
 .display-cart{
 	border-radius:5px;
@@ -28,6 +41,10 @@
 	height:auto!important;
 	width:100%;
 }
+.menu-container{
+	margin-top:.5rem;
+	margin-bottom:.9rem;
+}
 .mcard{	
 	min-width:20rem!important;
 	max-width:20rem!important;
@@ -36,16 +53,6 @@
 }
 .cinput{
 	width:25%!important;
-}
-.comments-div{
-	height:auto;
-	width:auto;
-	border:1px solid black
-}
-.display-comments{
-	height:200px;
-	width:auto;
-	overflow:auto;
 }
 .item-detail-img{
 	width:75%!important;
@@ -58,29 +65,36 @@
 .cartCardImg{
 	width:15rem!important;
 }
-.cart-btn{
-	position:relative;
-}
-.cart-btn:active{
-	background:black!important;
+.cart-icon{
+	margin-right:.3rem;
 }
 .cartIndicator{
 	position:absolute;
 	top:13px;
-	right:100px;
+	right:85px;
 	height:10px;
 	width:10px;
 	background:red;
 	border-radius:50%;
 }
 .logout{
-	margin:0 5px 0 5px;
+	margin-right:0.5rem;
+}
+.user-icon{
+	margin-right:0.3rem;
+}
+.username{
+	margin-left:auto;
 }
 .star{
 	color:yellow;
 }
 .menucard{
 	height:85%!important
+}
+.card-rating{
+	margin-left:auto;
+	margin-right:0.5rem;
 }
 .form-container{
 	width:50%!important;
@@ -157,11 +171,12 @@ b{
 	line-height:1rem!important;
 }
 .user-order{
-	max-height:25rem;
+	max-height:30rem;
 }
 .user-order-display{
-	max-height:15rem;
+	max-height:22rem;
 	overflow:auto;
+	margin-bottom:1rem;
 }
 .err-container{
 	position:absolute;
@@ -178,12 +193,28 @@ b{
 .go-home:hover{
 	color:white!important;
 }
+.checkout-cart{
+	padding:0px;
+	max-height:65vh;
+	overflow:auto;
+}
+.address-div{
+	padding:.5rem .5rem;
+}
+.footer{
+	margin-top:auto;
+}
 @media screen and (max-width:480px){
 .home-container{
-	position:absolute;
-	top:20%;
-	left:0px;
+	margin-top:30%;
+	margin-left:0px;
 	width:100%;
+	padding:1.5rem;
+	margin-bottom:19rem;
+}
+.footer-home{
+	position:fixed;
+	bottom:0px;
 }
 .mcard{	
 	min-width:200px!important;
@@ -211,7 +242,7 @@ b{
 }
 .cartIndicator{
 	top:105px;
-	left:80px;
+	left:65px;
 }
 .cart-icon{
 	padding-left:10px!important;
@@ -221,6 +252,9 @@ b{
 }
 .cartCardImg{
 	width:12rem!important;
+}
+.item-detail-img{
+	width:100%!important;
 }
 .form-container{
 	width:100%!important;
@@ -236,18 +270,21 @@ b{
 }
 .user{
 	padding:1rem!important;
-	box-shadow:0 0 0 0!important
+	box-shadow:0 0 0 0!important;
+	margin-bottom:30rem!important;
 }
 .user-order{
+	padding:0px;
 	height:20rem!important;
 	width:100%!important;
 	box-shadow:0 0 0 0!important
 }
 .user-order-display{
 	width:100%!important;
+	padding:1rem;
 }
 .user-info-col{
-	height:25rem!important;
+	height:33rem!important;
 }
 .user-order-col{
 	margin-top:.5rem;
@@ -260,5 +297,16 @@ b{
 	position:absolute;
 	top:30%;
 	left:0;
+}
+.menu-container{
+	max-height:auto;
+	overflow:none;
+}
+.place-order-div{
+	margin-bottom:1rem;
+}
+.footer{
+	position:relative;
+	margin-top:1rem;
 }
 }

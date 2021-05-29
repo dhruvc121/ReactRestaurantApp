@@ -19,16 +19,19 @@ const ItemDetail=()=>{
 		
 		const addToCart=()=>{
 			if(login){
-			const repeatCheck=cart[cart.findIndex(x=>x.id===item.id)]
-			if(!repeatCheck){
-				const itemToCart={
-						...item
-					}
-				setCart([...cart,itemToCart])
+						
+						const repeatCheck=cart[cart.findIndex(x=>x.id===item.id)]
+						if(!repeatCheck){
+						const itemToCart={
+								...item
+							}
+						setCart([...cart,itemToCart])
 				}else{
+						console.log(cart)
 						setCart([...cart])
+						window.alert("added to cart")
 					}
-			window.alert("added to cart")
+			
 			console.log(cart)
 		}else{
 				window.alert("you have to login first")

@@ -90,6 +90,8 @@ const User=()=>{
 		
 		
 		<Col xs={12} lg={6} className="user-info-col">
+		<h3 className="p-3">User Info</h3>
+		<hr/>
 		<h4>Name: {user.name}</h4><br/>
 		<h4>Email: {user.email}</h4><br/>
 		<div className="d-flex">

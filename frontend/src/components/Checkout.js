@@ -105,13 +105,14 @@ const Checkout=()=>{
 			}
 			}
 	return(<>
-	<Container>
+	<Container className="checkout-container">
 	<Row>
         <Col xs={12} lg={6}>
         <div className="display-cart text-left mt-3 shadow">
         <p className="text-capitalize mt-2 p-3 h3">Your Cart</p>
         <hr/>
-      {cart.length>0 &&
+        <Container className="checkout-cart">
+      {cart &&
 		cart.map((item,index)=>{
 		 return(
 			
@@ -138,6 +139,7 @@ const Checkout=()=>{
 			
 		 })
 	 }
+	 </Container>
 	 <hr/>
 	 <Button variant="success" onClick={placeOrderControl} className={(placeOrderState)?"disabled w-50 btn-lg":"w-50 btn-lg"}>Confirm order</Button>
 	<Button  className="text-center float-right w-50 btn-lg" ><NavLink to="/menu" style={{color:"white",textDecoration:"none"}}>
@@ -152,7 +154,7 @@ const Checkout=()=>{
         <hr/>
         <h4 className="my-1 text-capitalize px-3">order total=Rs. {orderTotal}</h4>
         
-		<div className="address-div pl-3">
+		<div className="address-div">
 		<p className="h4 mt-3 text-capitalize">Enter Address<span className="compulsory">*</span></p>
 			<input type="textarea" className="w-100 h-25 my-1 p-2" placeholder="Address" defaultValue={address} onChange={(e)=>{setAddress(e.target.value)}}/><br/>
 		<p className="h4 mt-3 text-capitalize">Enter Pincode<span className="compulsory">*</span></p>

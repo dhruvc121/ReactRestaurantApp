@@ -79,21 +79,21 @@ const Signup=()=>{
 		}
 	return(<>
 	<h2 className="text-center my-3">Signup Form</h2>
-	<Container className="shadow p-3 mt-5 signup-form">
+	<Container className="shadow p-3 signup-form">
 	<form method="POST" className="p-2 mt-2">
 	  
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="name" className="form-label">Full Name</label><span className="compulsory">*</span>
 		<input type="text" className="form-control" name="name"  value={user.name} onChange={(e)=>{setUser({...user,name:e.target.value})}}/>
 	  </div>
 	  
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="email" className="form-label">Email address</label><span className="compulsory">*</span>
 		<input type="email" className="form-control" name="email" value={user.email} onChange={inputHandle}/>
 		<span style={emailError==="valid"?{fontWeight:'bold',color:"green"}:{fontWeight:'bold',color:"red"}}>{emailError}</span>
 	  </div>
 	  
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="password" className="form-label">Password</label><span className="compulsory">*</span>
 		<input type="password" className="form-control" name="password" value={user.password} onChange={inputHandle}/>
 		<span style={passStr==="Strong"?{fontWeight:'bold',color:"green"}:{fontWeight:'bold',color:"red"}}>{passStr}</span><br/>
@@ -102,22 +102,22 @@ const Signup=()=>{
 		</span>
 	  </div>
 	  
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="cpassword" className="form-label">Confirm Password</label><span className="compulsory">*</span>
 		<input type="password" className="form-control" name="cpassword" value={user.cpassword} onChange={inputHandle}/>
 	  </div>
 	 
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="contactno" className="form-label">Contact No.</label><span className="compulsory">*</span>
 		<input type="number" className="form-control" name="contact" value={user.contact} onChange={inputHandle}/>
 	  </div>
 	 
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="contactno" className="form-label">Address</label><span className="compulsory">*</span>
 		<input type="text" className="form-control" name="address" value={user.address} onChange={inputHandle}/>
 	  </div>
 	 
-	  <div className="mb-3">
+	  <div className="mb-2">
 		<label htmlFor="pincode" className="form-label">Pincode</label><span className="compulsory">*</span>
 		<input type="number" className="form-control" name="pincode" value={user.pincode} onChange={inputHandle}/>
 	  </div>
