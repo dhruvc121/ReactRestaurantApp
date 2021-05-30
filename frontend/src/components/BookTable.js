@@ -31,18 +31,18 @@ const BookTable=()=>{
 					window.alert("booking unsuccessful")
 				}else{
 					
-					const mailRes=await	fetch("/send",{
-									method:"POST",
-									headers:{"Content-Type":"application/json"},
-									body:JSON.stringify(
-									reservation
-								)
-							})
-						const mailData=await mailRes.json();
-						if(res.status!==201||!userData){
-								window.alert("mail not sent")}else{
-										window.alert("mail sent")
-									}
+					//const mailRes=await	fetch("/send",{
+									//method:"POST",
+									//headers:{"Content-Type":"application/json"},
+									//body:JSON.stringify(
+									//reservation
+								//)
+							//})
+						//const mailData=await mailRes.json();
+						//if(res.status!==201||!userData){
+								//window.alert("mail not sent")}else{
+										//window.alert("mail sent")
+									//}
 					window.alert("Booking Request Received. we will send the confirmation on the contacts shared by you!!")
 					
 					
