@@ -18,7 +18,7 @@ const BookTable=()=>{
 		}
 	const postData=async (e)=>{
 			e.preventDefault()
-			console.log(reservation)
+		//	console.log(reservation)
 			const res=await	fetch("/booktable",{
 						method:"POST",
 						headers:{"Content-Type":"application/json"},
@@ -30,7 +30,7 @@ const BookTable=()=>{
 			if(res.status!==201||!userData){
 					window.alert("booking unsuccessful")
 				}else{
-					window.alert("Booking Request Received. we will send the confirmation on the contacts shared by you!!")
+					
 					const mailRes=await	fetch("/send",{
 									method:"POST",
 									headers:{"Content-Type":"application/json"},
@@ -43,7 +43,7 @@ const BookTable=()=>{
 								window.alert("mail not sent")}else{
 										window.alert("mail sent")
 									}
-					
+					window.alert("Booking Request Received. we will send the confirmation on the contacts shared by you!!")
 					
 					
 					setReservation({
@@ -53,7 +53,7 @@ const BookTable=()=>{
 			date:"",
 			time:""
 				})
-					window.alert("booking success! we will send a confirmation on your contact details!")
+					//window.alert("booking success! we will send a confirmation on your contact details!")
 					history.push("/")				
 			}
 		}

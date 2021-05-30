@@ -16,7 +16,7 @@ router.post('/changepassword',async(req,res)=>{
 		const newpsw=req.body.newPassword.newPassword
 		const cnewpsw=req.body.newPassword.cNewPassword
 		const id=req.body.id
-		console.log(currpsw,newpsw,cnewpsw,id)
+		//console.log(currpsw,newpsw,cnewpsw,id)
 		try{
 		const user=await RestuarantAppUser.findOne({_id:id})
 		const isMatch=await bcrypt.compare(currpsw,user.password);
@@ -57,7 +57,7 @@ router.post('/changeaddress',async(req,res)=>{
 		const address=req.body.newAddress.address
 		const pincode=req.body.newAddress.pincode
 		const id=req.body.id
-		console.log(address,pincode,id)
+		//console.log(address,pincode,id)
 		try{
 		RestuarantAppUser.findByIdAndUpdate(id, { address:address,pincode:pincode },
         function (err, docs) {
@@ -78,7 +78,7 @@ router.post('/changeaddress',async(req,res)=>{
 router.post('/autologin',async(req,res)=>{
 		try{
 		const token=req.body.tkn;
-		console.log(req.body)
+	//	console.log(req.body)
 		const verifyToken=jwt.verify(token,process.env.SECRETKEY)
 		const user=await RestuarantAppUser.findOne({_id:verifyToken._id})
 		console.log(verifyToken._id)
@@ -103,7 +103,7 @@ router.get("/getorders",async(req,res)=>{
 	})
 router.post("/userinfo",async(req,res)=>{
 		const email=req.body.email
-		console.log(email,req.body)
+		//console.log(email,req.body)
 		const userExists=await RestuarantAppUser.findOne({email:email})
 		if(!userExists){
 						res.json()
@@ -119,7 +119,7 @@ router.post('/checkout',async(req,res)=>{
 		const email=req.body.email
 		const order=req.body.order
 		
-		console.log(email,order)
+		//console.log(email,order)
 		try{
 			const userExists = await RestuarantAppUser.findOne({email})
 				if(userExists){
@@ -170,8 +170,8 @@ router.post('/booktable',async (req,res)=>{
 		const guests=req.body.guests
 		const date=req.body.date
 		const time=req.body.time;
-		console.log(req.body)
-		console.log(reservee,contact,guests,date,time)
+//		console.log(req.body)
+	//	console.log(reservee,contact,guests,date,time)
 		if(!reservee||!contact||!guests||!date||!time){
 				return res.status(422).json({error:"Fill all fields"})
 			}
@@ -242,7 +242,7 @@ router.post('/login',async (req,res)=>{
 									res.json("invalid login details");
 								}
 						
-						console.log(token)
+					//	console.log(token)
 						}catch(err){
 								res.json({err})
 							}

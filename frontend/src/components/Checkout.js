@@ -27,26 +27,26 @@ const Checkout=()=>{
 					setPincode(user.pincode);
 				}	
 		},[])
-	console.log(cart)
+	//console.log(cart)
 	const totalAmount=()=>{
-		console.log(cart.length)
+		//console.log(cart.length)
 			if(cart.length!==0){
-					console.log("before total",cart)
+			//		console.log("before total",cart)
 					const res=cart.reduce((prev,item)=>{return prev+(item.price*item.quantity)},0)
-					console.log(res)
+				//	console.log(res)
 					setOrderTotal(res)					
-					console.log("after total",cart)
+					//console.log("after total",cart)
 				}
 			else{
 					setOrderTotal(0)
-					console.log("here")
+					//console.log("here")
 				}
 				
 		}
 	
 	const placeOrderControl=()=>{
 			setPlaceOrderState(true)
-			console.log(cart)
+		//	console.log(cart)
 			totalAmount()
 		}
 	const increase=(index,id)=>{
@@ -69,13 +69,14 @@ const Checkout=()=>{
 						}
 				})
 			setCart(newCart)
-			console.log("after remove",cart)
+			//console.log("after remove",cart)
 			totalAmount()
 		}
 	const placeOrder=async ()=>{
 			let date=new Date
 			let order={cart,address:address,pincode:pincode,total:orderTotal,date:date.toLocaleString()}
 			let email=user.email
+			//console.log(email,order)
 			const res=await	fetch("/checkout",{
 						method:"POST",
 					headers:{"Content-Type":"application/json"},
@@ -104,6 +105,7 @@ const Checkout=()=>{
 					setPincode("")
 			}
 			}
+		//	console.log(cart)
 	return(<>
 	<Container className="checkout-container">
 	<Row>

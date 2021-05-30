@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
-import {NavLink} from 'react-router-dom'
+import {NavLink,useHistory} from 'react-router-dom'
 import {LoginStateContext} from '../context/loginStateContext.js'
 import {CartContext} from '../context/cartContext.js'
 import {UserContext} from '../context/userDetailContext.js'
@@ -13,9 +13,10 @@ const Header=()=>{
 	const [login,setLogin]=useContext(LoginStateContext);
 	const [cart,setCart]=useContext(CartContext);
 	const [user,setUser]=useContext(UserContext);
-	console.log(user)
+	const history=useHistory()
+	//console.log(user)
 	const saveCart=async()=>{
-		console.log("here")
+		//console.log("here")
 		let email=user.email
 			const res=await	fetch("/savecart",{
 						method:"POST",
@@ -24,7 +25,7 @@ const Header=()=>{
 						cart,email
 					})
 				})
-			console.log("here")
+			//console.log("here")
 			const userData=await res.json();
 			if(res.status!==201||!userData){
 					window.alert("cart save unsuccessful")
@@ -35,7 +36,7 @@ const Header=()=>{
 		}
 	
 	const logout=()=>{
-		console.log(cart)
+		//console.log(cart)
 		if(cart){
 				localStorage.clear()
 				saveCart()
@@ -43,6 +44,7 @@ const Header=()=>{
 		
 		
 			setLogin(false)
+			history.push("/")
 		}
 	return(<>
 	<Navbar bg="light" expand="lg">

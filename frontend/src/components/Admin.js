@@ -37,7 +37,7 @@ const Admin=()=>{
 			}else{
 				setUserData({})
 				}
-			console.log(userData)
+			//console.log(userData)
 		}catch(err){
 				setUserData({})
 			}

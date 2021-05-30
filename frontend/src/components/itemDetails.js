@@ -14,36 +14,36 @@ const ItemDetail=()=>{
 		const [item,setItem]=useContext(ItemContext);
 		const [login,setLogin]=useContext(LoginStateContext);
 		const [cart,setCart]=useContext(CartContext);
-		const [comment,setComment]=useState("")
+		//const [comment,setComment]=useState("")
 		
 		
 		const addToCart=()=>{
 			if(login){
-						
 						const repeatCheck=cart[cart.findIndex(x=>x.id===item.id)]
 						if(!repeatCheck){
 						const itemToCart={
 								...item
 							}
 						setCart([...cart,itemToCart])
-				}else{
-						console.log(cart)
-						setCart([...cart])
 						window.alert("added to cart")
-					}
+						}else{
+				//				console.log(cart)
+								setCart([...cart])
+								window.alert("added to cart")
+							}
 			
-			console.log(cart)
+			//console.log(cart)
 		}else{
 				window.alert("you have to login first")
 			}
 			
 			}
-		const addComment=()=>{
-				const updatedComments=[...item.comments,{username:"user1",comment:comment}]
-				const newItem={...item,comments:updatedComments}
-				setItem(newItem)
-				setComment("")
-			}	
+		//const addComment=()=>{
+				//const updatedComments=[...item.comments,{username:"user1",comment:comment}]
+				//const newItem={...item,comments:updatedComments}
+				//setItem(newItem)
+				//setComment("")
+			//}	
 		
 		return(
 		<>	

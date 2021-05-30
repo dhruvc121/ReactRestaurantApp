@@ -44,10 +44,10 @@ const Signup=()=>{
 			const data=await res.json();
 			if(data.status===422||!data||password!==cpassword){
 					window.alert("registration failed");
-					console.log("registration failed")
+					//console.log("registration failed")
 				}else{
 					window.alert("registration success");
-					console.log("registration success");
+					//console.log("registration success");
 					
 					history.push("/login")
 					}

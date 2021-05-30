@@ -27,14 +27,18 @@ const Login=()=>{
 			const userData=await res.json();
 			setUser(userData.userExists)
 			localStorage.setItem('token',userData.token)
-		console.log(userData.token)
+	//	console.log(userData.token)
 			if(res.status!==201||!userData){
 					window.alert("invalid credentials")
 				}else{
 					window.alert("login success")
 					setLogin(true)
-					setCart(userData.userExists.cart)
-					console.log(cart)
+					if(!userData.userExists.cart){
+						setCart([])
+					}else{
+						setCart(userData.userExists.cart)
+						}
+					//console.log(userData.userExists)
 					setEmail("");
 					setPassword("");}
 					history.push("/")

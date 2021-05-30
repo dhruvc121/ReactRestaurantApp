@@ -32,7 +32,7 @@ const User=()=>{
 	
 	const changeAddress=async (e)=>{
 		e.preventDefault();
-		console.log(newAddress.address,newAddress.pincode)
+//		console.log(newAddress.address,newAddress.pincode)
 		let id=user._id
 		const res=await fetch("/changeaddress",{
 					method:"POST",

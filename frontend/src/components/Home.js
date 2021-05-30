@@ -20,7 +20,7 @@ useEffect(()=>{
 	},[])
 	const autoLogin=async()=>{
 		let tkn=getToken;
-		console.log(tkn)
+	//	console.log(tkn)
 		try{
 			const res=await	fetch("/autologin",{
 						method:"POST",
@@ -28,7 +28,7 @@ useEffect(()=>{
 					body:JSON.stringify({tkn,login})
 				})
 			const userData=await res.json();
-			console.log(userData)
+		//	console.log(userData)
 			setUser(userData)
 			setCart(userData.cart)
 			setLogin(true)
