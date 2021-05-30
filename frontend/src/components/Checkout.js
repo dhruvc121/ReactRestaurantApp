@@ -4,7 +4,7 @@ import {CartContext} from '../context/cartContext.js'
 import {OrderDetailContext} from '../context/OrderDetailContext.js'
 import {UserContext} from '../context/userDetailContext.js'
 import CartCard from './CartCard.js'
-import {NavLink} from 'react-router-dom'
+import {NavLink,useHistory} from 'react-router-dom'
 //todo:
 //dynamic address selection
 //user order details store in db 
@@ -18,7 +18,7 @@ const Checkout=()=>{
 	const [orderTotal,setOrderTotal]=useState(0)
 	const [address,setAddress]=useState("")
 	const [pincode,setPincode]=useState("")
-	
+	const history=useHistory()
 	
 	useEffect(()=>{
 			//totalAmount()
@@ -88,21 +88,22 @@ const Checkout=()=>{
 			if(res.status!==201||!userData){
 					window.alert("order place unsuccessful")
 				}else{
-					window.alert("please wait... we are processing your request")
+					//window.alert("please wait... we are processing your request")
 					
-					const mailRes=await	fetch("/sendorder",{
-									method:"POST",
-									headers:{"Content-Type":"application/json"},
-									body:JSON.stringify(
-									{email,order}
-								)
-							})
-						const mailData=await mailRes.json();
+					//const mailRes=await	fetch("/sendorder",{
+									//method:"POST",
+									//headers:{"Content-Type":"application/json"},
+									//body:JSON.stringify(
+									//{email,order}
+								//)
+							//})
+						//const mailData=await mailRes.json();
 					
 					window.alert("order place success")
 					setCart([]);
 					setAddress("")
 					setPincode("")
+					history.push("/")
 			}
 			}
 		//	console.log(cart)
