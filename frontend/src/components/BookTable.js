@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
 import {Container} from 'react-bootstrap';
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom';
+import emailjs from 'emailjs-com'
+
+
 const BookTable=()=>{
 	const history=useHistory()
 	const [reservation,setReservation]=useState({
@@ -57,12 +60,22 @@ const BookTable=()=>{
 					history.push("/")				
 			}
 		}
-	
+	function sendEmail(e) {
+    e.preventDefault();
+	//console.log("here")
+    emailjs.sendForm('service_hbsmmu5', 'template_0n9obhm', e.target, process.env.REACT_APP_USER_KEY)
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      postData(e)
+  }
 	return(<>
 	<Container className="justify-content-center">
 	<h2 className="text-center my-3">Table Reservation</h2>
 	<Container className="form-container shadow">
-	<form method="POST" className="p-3 my-3">
+	<form method="POST" className="p-3 my-3" onSubmit={sendEmail}>
 	  <div className="mb-3">
 		<label htmlFor="reservee" className="form-label">Name of the reservee</label><span className="compulsory">*</span>
 		<input type="text" defaultValue={reservation.reservee} name="reservee" onChange={inputHandle} className="form-control" />
@@ -83,7 +96,7 @@ const BookTable=()=>{
 		<label htmlFor="guests" className="form-label">Time of reservation</label><span className="compulsory">*</span>
 		<input type="time" defaultValue={reservation.time} name="time" onChange={inputHandle} className="form-control"/>
 	  </div>
-	  <button type="submit" onClick={postData} className="btn btn-success form-btn btn-lg">Submit</button>
+	  <button type="submit" className="btn btn-success form-btn btn-lg">Submit</button>
 	</form>
 	</Container>
 	</Container>

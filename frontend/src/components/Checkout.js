@@ -5,6 +5,7 @@ import {OrderDetailContext} from '../context/OrderDetailContext.js'
 import {UserContext} from '../context/userDetailContext.js'
 import CartCard from './CartCard.js'
 import {NavLink,useHistory} from 'react-router-dom'
+import emailjs from 'emailjs-com'
 //todo:
 //dynamic address selection
 //user order details store in db 
@@ -76,7 +77,14 @@ const Checkout=()=>{
 			let date=new Date
 			let order={cart,address:address,pincode:pincode,total:orderTotal,date:date.toLocaleString()}
 			let email=user.email
+			let templateVar={order,email}
 			//console.log(email,order)
+			emailjs.send('service_hbsmmu5', 'template_5rir92d',	templateVar, process.env.REACT_APP_USER_KEY)
+			.then(function(response) {
+			   console.log('SUCCESS!', response.status, response.text);
+			}, function(error) {
+			   console.log('FAILED...', error);
+			});
 			const res=await	fetch("/checkout",{
 						method:"POST",
 					headers:{"Content-Type":"application/json"},
@@ -107,6 +115,7 @@ const Checkout=()=>{
 			}
 			}
 		//	console.log(cart)
+	
 	return(<>
 	<Container className="checkout-container">
 	<Row>
