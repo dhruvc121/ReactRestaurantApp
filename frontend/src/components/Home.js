@@ -39,7 +39,8 @@ useEffect(()=>{
 	
 	return(
 	<>
-	<Container className="col-lg-4 col-sm-12 home-container shadow">
+	
+	<Container className="col-lg-4 col-sm-12 home-container shadow bg-light">
 					<h1>Welcome to Restaurant OP</h1><br/>
 					<h3>We aim to provide best service at users comforts!!</h3>
 					<br/>

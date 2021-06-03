@@ -4,6 +4,7 @@ import {LoginStateContext} from '../context/loginStateContext.js'
 import {UserContext} from '../context/userDetailContext.js'
 import {CartContext} from '../context/cartContext.js'
 import {useHistory,NavLink} from 'react-router-dom'
+import GoogleLogin from 'react-google-login';
 
 const Login=()=>{
 	const [email,setEmail]=useState("")
@@ -43,6 +44,37 @@ const Login=()=>{
 					setPassword("");}
 					history.push("/")
 			}}
+			
+			
+		const responseGoogle=async(response)=>{
+			console.log(response)
+			const tokenId=response.tokenObj.id_token
+			console.log(tokenId)
+				const res=await fetch("/googlelogin",{
+					method:"POST",
+					headers:{"Content-Type":"application/json"},
+					body:JSON.stringify({
+						tokenId
+					})
+					})
+					const data=await res.json()
+					setUser(data.userExists)
+					localStorage.setItem('token',data.token)
+					if(res.status!==201||!res){
+						window.alert("invalid credentials")
+					}else{
+						window.alert("login success")
+						setLogin(true)
+						if(!data.userExists.cart){
+							setCart([])
+						}else{
+							setCart(data.userExists.cart)
+						}
+					history.push("/")
+			}
+					
+			}
+		//LbLQ2wgDe3e9K1RZl7z0XsNC profileObj->email ,name
 	return(<>
 	<h2 className="text-center my-3">Login Form</h2>
 	<Container className="shadow p-3 mt-5 login-form">
@@ -60,7 +92,17 @@ const Login=()=>{
 	  <button type="submit" className="btn btn-success form-btn btn-lg" onClick={userLogin}>Submit</button>
 	</form>
 	<hr/>
+	<Button className="gLogin">
+	<GoogleLogin
+    clientId="829000374443-bld3o83gnl2l3llr5grat1a1f4nevjfl.apps.googleusercontent.com"
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+    cookiePolicy={'single_host_origin'}
+  />
+	</Button>
 	<p className="text-center">Not Registered? <NavLink to="/signup">SignUp</NavLink></p>
+	
 	</Container>
 	
 	</>)

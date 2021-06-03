@@ -1,14 +1,44 @@
 const express=require('express');
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken')
-
+const {OAuth2Client}=require('google-auth-library')
 const router=express.Router()
 
 require('../db/conn.js')
 const RestuarantAppUser=require('../models/schema.js')
 const RestuarantAppReservation=require('../models/reservation.js')
 const RestuarantAppOrders=require('../models/allorders.js')
+const client=new OAuth2Client(process.env.OAUTH_CLIENTID)
 
+//google login
+router.post("/googlelogin",async(req,res)=>{
+		const tokenId=req.body.tokenId
+		const response=await client.verifyIdToken({idToken:tokenId,audience:process.env.CLIENT_ID})
+		const {email_verified,email,name}=response.payload
+				try{
+				if(email_verified){
+						const userExists=await RestuarantAppUser.findOne({email:email})
+						if(userExists){
+								const token=await userExists.generateAuthToken();
+								console.log("line 23",userExists)
+								res.status(201).json({userExists,token});
+							}else{
+									let password="SomeRandomGenPassword"
+									let cpassword="SomeRandomGenPassword"
+									const user=new RestuarantAppUser({name,email,password,cpassword})
+									await user.save()
+									const userExists=await RestuarantAppUser.findOne({email:email})
+									const token=await userExists.generateAuthToken();
+									console.log("here")
+									console.log("line 33",userExists)
+									res.status(201).json({userExists,token});
+								}
+							
+					}}catch(err){
+						console.log(err)
+						}
+			
+	})
 
 //change password --works
 router.post('/changepassword',async(req,res)=>{
