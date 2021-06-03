@@ -47,9 +47,9 @@ const Login=()=>{
 			
 			
 		const responseGoogle=async(response)=>{
-			console.log(response)
+			//console.log(response)
 			const tokenId=response.tokenObj.id_token
-			console.log(tokenId)
+		//	console.log(tokenId)
 				const res=await fetch("/googlelogin",{
 					method:"POST",
 					headers:{"Content-Type":"application/json"},

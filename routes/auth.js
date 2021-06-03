@@ -20,7 +20,7 @@ router.post("/googlelogin",async(req,res)=>{
 						const userExists=await RestuarantAppUser.findOne({email:email})
 						if(userExists){
 								const token=await userExists.generateAuthToken();
-								console.log("line 23",userExists)
+								//console.log("line 23",userExists)
 								res.status(201).json({userExists,token});
 							}else{
 									let password="SomeRandomGenPassword"
@@ -29,8 +29,8 @@ router.post("/googlelogin",async(req,res)=>{
 									await user.save()
 									const userExists=await RestuarantAppUser.findOne({email:email})
 									const token=await userExists.generateAuthToken();
-									console.log("here")
-									console.log("line 33",userExists)
+								//	console.log("here")
+							//		console.log("line 33",userExists)
 									res.status(201).json({userExists,token});
 								}
 							
