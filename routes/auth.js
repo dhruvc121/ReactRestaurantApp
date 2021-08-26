@@ -3,15 +3,18 @@ const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken')
 const {OAuth2Client}=require('google-auth-library')
 const router=express.Router()
+const cookieparser=require('cookie-parser')
 
 require('../db/conn.js')
 const RestuarantAppUser=require('../models/schema.js')
 const RestuarantAppReservation=require('../models/reservation.js')
 const RestuarantAppOrders=require('../models/allorders.js')
 const client=new OAuth2Client(process.env.OAUTH_CLIENTID)
+const authenticate=require('../middleware/authenticate.js')
+
 
 //google login
-router.post("/googlelogin",async(req,res)=>{
+router.post("/googlelogin",authenticate,async(req,res)=>{
 		const tokenId=req.body.tokenId
 		const response=await client.verifyIdToken({idToken:tokenId,audience:process.env.CLIENT_ID})
 		const {email_verified,email,name}=response.payload
@@ -41,7 +44,7 @@ router.post("/googlelogin",async(req,res)=>{
 	})
 
 //change password --works
-router.post('/changepassword',async(req,res)=>{
+router.post('/changepassword',authenticate,async(req,res)=>{
 		const currpsw=req.body.newPassword.currPassword
 		const newpsw=req.body.newPassword.newPassword
 		const cnewpsw=req.body.newPassword.cNewPassword
@@ -83,7 +86,7 @@ router.post('/changepassword',async(req,res)=>{
 
 
 //change address --works
-router.post('/changeaddress',async(req,res)=>{
+router.post('/changeaddress',authenticate,async(req,res)=>{
 		const address=req.body.newAddress.address
 		const pincode=req.body.newAddress.pincode
 		const id=req.body.id
@@ -105,7 +108,7 @@ router.post('/changeaddress',async(req,res)=>{
 
 
 //autologin with token --works
-router.post('/autologin',async(req,res)=>{
+router.post('/autologin',authenticate,async(req,res)=>{
 		try{
 		const token=req.body.tkn;
 	//	console.log(req.body)
@@ -120,18 +123,18 @@ router.post('/autologin',async(req,res)=>{
 
 
 //admin getdata --working
-router.get("/gettables",async(req,res)=>{
+router.get("/gettables",authenticate,async(req,res)=>{
 		//res.cookie("mycookie","cookie")
 				RestuarantAppReservation.find({},(err,tables)=>{
 				res.send(tables)
 			})
 	})
-router.get("/getorders",async(req,res)=>{
+router.get("/getorders",authenticate,async(req,res)=>{
 		RestuarantAppOrders.find({},(err,orders)=>{
 				res.send(orders)
 			})
 	})
-router.post("/userinfo",async(req,res)=>{
+router.post("/userinfo",authenticate,async(req,res)=>{
 		const email=req.body.email
 		//console.log(email,req.body)
 		const userExists=await RestuarantAppUser.findOne({email:email})
@@ -145,7 +148,7 @@ router.post("/userinfo",async(req,res)=>{
 
 
 //chexkout --works
-router.post('/checkout',async(req,res)=>{
+router.post('/checkout',authenticate,async(req,res)=>{
 		const email=req.body.email
 		const order=req.body.order
 		
@@ -174,10 +177,11 @@ router.post('/checkout',async(req,res)=>{
 router.post('/savecart',async(req,res)=>{
 		const cart=req.body.cart
 		const email=req.body.email
+		console.log("inside save cart")
 		try{
 			const userExists = await RestuarantAppUser.findOne({email})
 				if(userExists){
-						//console.log(userExists._id)
+						console.log(userExists._id)
 						let myquery = { email: email };
 						let newvalues = { $set: {cart: cart } };
 						await RestuarantAppUser.updateOne(myquery,newvalues,(err,res)=>{
@@ -194,7 +198,7 @@ router.post('/savecart',async(req,res)=>{
 
 
 //book table --works
-router.post('/booktable',async (req,res)=>{
+router.post('/booktable',authenticate,async (req,res)=>{
 		const reservee=req.body.reservee
 		const contact=req.body.contact
 		const guests=req.body.guests
@@ -223,10 +227,12 @@ router.post('/booktable',async (req,res)=>{
 //signup --works
 router.post('/signup',async (req,res)=>{
 		const {name,email,password,cpassword,contact,address,pincode}=req.body;
+		console.log(req.body)
 		if(!email|!name||!password||!cpassword||!contact){
 				return res.status(422).json({error:"Fill all compulsory fields"})
 			}
 		try{
+			
 			const userExists = await RestuarantAppUser.findOne({email:email})
 				if(userExists){
 						return res.status(422).json({error:"user already exists"})
@@ -260,14 +266,15 @@ router.post('/login',async (req,res)=>{
 							const isMatch=await bcrypt.compare(password,userExists.password);
 					
 						const token=await userExists.generateAuthToken();
-					
-						res.cookie("jwtoken",token,{
-								expires:new Date(Date.now() + 25892000000),
-								httpOnly:true,
-							})
-							
+						console.log(265,token)							
 							if(isMatch){
-							res.status(201).json({userExists,token});
+							// res.cookie("jwtoken",token,{
+							// 		httpOnly:true,
+							// 	})
+							// res.status(201).json({userExists,token});
+							res.cookie("logintoken",token,{
+								})
+							res.status(200).json({userExists})
 							}else{
 									res.json("invalid login details");
 								}
@@ -279,5 +286,20 @@ router.post('/login',async (req,res)=>{
 						}
 				
 		
+	})
+
+
+	router.get("/home",authenticate,(req,res)=>{
+		res.send(req.rootUser)
+	})
+	router.get("/checkout",authenticate,(req,res)=>{
+		res.status(200).json({message:"authorised user"})
+	})
+	router.get("/userinfo",authenticate,(req,res)=>{
+		res.status(200).json({message:"authorised user"})
+	})
+	router.get("/logout",(req,res)=>{
+		res.clearCookie("logintoken")
+		res.status(200).json({message:"logout success"})
 	})
 module.exports=router

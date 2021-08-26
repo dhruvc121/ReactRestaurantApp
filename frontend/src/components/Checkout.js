@@ -1,14 +1,9 @@
 import React,{useContext,useState,useEffect} from 'react'
-import {Button,Container,Row,Col,Card} from 'react-bootstrap'
+import {Button,Container,Row,Col} from 'react-bootstrap'
 import {CartContext} from '../context/cartContext.js'
 import {OrderDetailContext} from '../context/OrderDetailContext.js'
 import {UserContext} from '../context/userDetailContext.js'
-import CartCard from './CartCard.js'
-import {NavLink,useHistory} from 'react-router-dom'
-import emailjs from 'emailjs-com'
-//todo:
-//dynamic address selection
-//user order details store in db 
+import {NavLink,useHistory} from 'react-router-dom' 
 
 const Checkout=()=>{
 	const [cart,setCart]=useContext(CartContext)
@@ -20,6 +15,20 @@ const Checkout=()=>{
 	const [address,setAddress]=useState("")
 	const [pincode,setPincode]=useState("")
 	const history=useHistory()
+	useEffect(()=>{
+        authenticate()
+    },[])
+    const authenticate = async() => {
+        const res=await fetch("/checkout",{
+			method:"GET",
+			credentials:'include',
+		})
+		console.log(res.status)
+        if(res.status!==200){
+			history.push("/login")
+		}
+    }
+	
 	
 	useEffect(()=>{
 			//totalAmount()
@@ -79,12 +88,12 @@ const Checkout=()=>{
 			let email=user.email
 			let templateVar={order,email}
 			//console.log(email,order)
-			emailjs.send('service_hbsmmu5', 'template_5rir92d',	templateVar, process.env.REACT_APP_USER_KEY)
-			.then(function(response) {
-			   console.log('SUCCESS!', response.status, response.text);
-			}, function(error) {
-			   console.log('FAILED...', error);
-			});
+			// emailjs.send('service_hbsmmu5', 'template_5rir92d',	templateVar, process.env.REACT_APP_USER_KEY)
+			// .then(function(response) {
+			//    console.log('SUCCESS!', response.status, response.text);
+			// }, function(error) {
+			//    console.log('FAILED...', error);
+			// });
 			const res=await	fetch("/checkout",{
 						method:"POST",
 					headers:{"Content-Type":"application/json"},

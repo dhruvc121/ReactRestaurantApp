@@ -10,32 +10,51 @@ const Home=()=>{
 	const [user,setUser]=useContext(UserContext)
 	const [cart,setCart]=useContext(CartContext)
 	const [login,setLogin]=useContext(LoginStateContext);
-	let getToken=""
+	//let getToken=""
 	//const [token,setToken]=useState("");
-useEffect(()=>{
-		getToken=localStorage.getItem('token')
-		if(getToken && !login){
-		//setToken(getToken)
-		autoLogin()}
-	},[])
-	const autoLogin=async()=>{
-		let tkn=getToken;
-	//	console.log(tkn)
-		try{
-			const res=await	fetch("/autologin",{
-						method:"POST",
-					headers:{"Content-Type":"application/json"},
-					body:JSON.stringify({tkn,login})
-				})
-			const userData=await res.json();
-		//	console.log(userData)
-			setUser(userData)
-			setCart(userData.cart)
+// useEffect(()=>{
+// 		getToken=localStorage.getItem('token')
+// 		if(getToken && !login){
+// 		//setToken(getToken)
+// 		autoLogin()}
+// 	},[])
+	// const autoLogin=async()=>{
+	// 	let tkn=getToken;
+	// //	console.log(tkn)
+	// 	try{
+	// 		const res=await	fetch("/autologin",{
+	// 					method:"POST",
+	// 				headers:{"Content-Type":"application/json"},
+	// 				body:JSON.stringify({tkn,login})
+	// 			})
+	// 		const userData=await res.json();
+	// 	//	console.log(userData)
+	// 		setUser(userData)
+	// 		setCart(userData.cart)
+	// 		setLogin(true)
+	// 		}catch(err){
+	// 			console.log(err)
+	// 			}
+	// 	}
+	useEffect(()=>{
+        authenticate()
+    },[])
+    const authenticate = async() => {
+        const loginState=await fetch("/home",{
+			method:"GET",
+			credentials:'include',
+		})
+		const resdata=await loginState.json()
+		if(loginState.status===200){
 			setLogin(true)
-			}catch(err){
-				console.log(err)
-				}
+			setUser(resdata)
+			if(!resdata.cart){
+				setCart([])
+			}else{
+				setCart(resdata.cart)
+			}
 		}
+    }
 	
 	return(
 	<>

@@ -16,7 +16,7 @@ const ItemDetail=()=>{
 		const [cart,setCart]=useContext(CartContext);
 		//const [comment,setComment]=useState("")
 		
-		
+		console.log(cart)
 		const addToCart=()=>{
 			if(login){
 						const repeatCheck=cart[cart.findIndex(x=>x.id===item.id)]

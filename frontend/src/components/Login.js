@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import {Container,Form,Button} from 'react-bootstrap'
 import {LoginStateContext} from '../context/loginStateContext.js'
 import {UserContext} from '../context/userDetailContext.js'
@@ -13,6 +13,19 @@ const Login=()=>{
 	const [login,setLogin]=useContext(LoginStateContext);
 	const [cart,setCart]=useContext(CartContext);
 	const history=useHistory()	
+	useEffect(()=>{
+        authenticate()
+    },[])
+    const authenticate = async() => {
+        const res=await fetch("/home",{
+			method:"GET",
+			credentials:'include',
+		})
+		if(res.status===200)
+		{
+			history.push("/")
+		}
+    }
 	const userLogin=async(e)=>{
 				e.preventDefault();
 			if(email===process.env.REACT_APP_ADMIN_ID && password===process.env.REACT_APP_ADMIN_PASS){
@@ -20,22 +33,27 @@ const Login=()=>{
 				}else{
 			const res=await	fetch("/login",{
 						method:"POST",
+						credentials: 'include',
 					headers:{"Content-Type":"application/json"},
 					body:JSON.stringify({
 						email,password
 					})
 				})
 			const userData=await res.json();
+			console.log(userData.userExists.cart)
 			setUser(userData.userExists)
 			localStorage.setItem('token',userData.token)
 	//	console.log(userData.token)
-			if(res.status!==201||!userData){
+			if(res.status!==200||!userData){
 					window.alert("invalid credentials")
 				}else{
 					window.alert("login success")
 					setLogin(true)
 					if(!userData.userExists.cart){
-						setCart([])
+						console.log("before set cart")
+						const emptyCart=[]
+						setCart(emptyCart)
+						console.log(CartContext)
 					}else{
 						setCart(userData.userExists.cart)
 						}
@@ -44,7 +62,7 @@ const Login=()=>{
 					setPassword("");}
 					history.push("/")
 			}}
-			
+	
 			
 		const responseGoogle=async(response)=>{
 			//console.log(response)

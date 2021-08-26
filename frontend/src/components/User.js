@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import {Container,Button,Row,Col,Modal} from 'react-bootstrap';
 import {UserContext} from '../context/userDetailContext.js'
 import {LoginStateContext} from '../context/loginStateContext.js'
@@ -27,7 +27,19 @@ const User=()=>{
 			cNewPassword:""
 		})
 	
-	
+		useEffect(()=>{
+			authenticate()
+		},[])
+		const authenticate = async() => {
+			const res=await fetch("/checkout",{
+				method:"GET",
+				credentials:'include',
+			})
+			console.log(res.status)
+			if(res.status!==200){
+				history.push("/login")
+			}
+		}
 	
 	
 	const changeAddress=async (e)=>{
@@ -83,7 +95,7 @@ const User=()=>{
 				setNewPassword({...newPassword,[name]:value})
 				}
 		}
-		//console.log(user)
+		console.log(user)
 		return(<>
 		<Container className="user shadow my-5 p-5 col-lg-10 bg-light">
 		<Row>

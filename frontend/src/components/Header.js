@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
-import {NavLink,useHistory} from 'react-router-dom'
+import {NavLink,useHistory,Link} from 'react-router-dom'
 import {LoginStateContext} from '../context/loginStateContext.js'
 import {CartContext} from '../context/cartContext.js'
 import {UserContext} from '../context/userDetailContext.js'
@@ -14,38 +14,7 @@ const Header=()=>{
 	const [cart,setCart]=useContext(CartContext);
 	const [user,setUser]=useContext(UserContext);
 	const history=useHistory()
-	//console.log(user)
-	const saveCart=async()=>{
-		//console.log("here")
-		let email=user.email
-			const res=await	fetch("/savecart",{
-						method:"POST",
-					headers:{"Content-Type":"application/json"},
-					body:JSON.stringify({
-						cart,email
-					})
-				})
-			//console.log("here")
-			const userData=await res.json();
-			if(res.status!==201||!userData){
-					window.alert("cart save unsuccessful")
-				}else{
-					window.alert("cart save success")
-					setCart([]);
-			}
-		}
-	
-	const logout=()=>{
-		//console.log(cart)
-		if(cart){
-				localStorage.clear()
-				saveCart()
-			}
-		
-		
-			setLogin(false)
-			history.push("/")
-		}
+
 	return(<>
 	<Navbar bg="light" expand="lg">
   <Navbar.Brand ><NavLink to="/" style={{color:"black",textDecoration:"none",marginLeft:"0.5rem"}}>Restaurant OP</NavLink></Navbar.Brand>
@@ -73,7 +42,7 @@ const Header=()=>{
 					<div className={""+(!cart?'':'cartIndicator')}></div>
 				</NavLink>
 	</Button>
-	<Button className={"px-2 bg-light border-0 text-dark logout "+(login?'':'d-none')} onClick={logout}>Logout</Button>
+	<Button className={"px-2 bg-light border-0 text-dark logout "+(login?'':'d-none')}><Link to="/logout" className="text-dark text-decoration-none">Logout</Link></Button>
 </Navbar.Collapse>
 </Navbar>
 	

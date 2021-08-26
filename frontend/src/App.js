@@ -15,6 +15,7 @@ import Menu from './components/Menu.js'
 import User from './components/User.js'
 import Footer from './components/footer.js'
 import ErrorPage from './components/ErrorPage.js'
+import Logout from './components/Logout.js'
 import {Button} from 'react-bootstrap'
 import {NavLink,Switch} from 'react-router-dom'
 import {UserContext} from './context/userDetailContext.js'
@@ -31,29 +32,32 @@ function App() {
   <Route exact path="/">
   <Home/>
   </Route>
-  <Route exact path="/login">
+  <Route path="/login">
   <Login/>
   </Route>
-  <Route exact path="/signup">
+  <Route path="/signup">
   <Signup/>
   </Route>
-  <Route exact path="/itemdetails">
+  <Route path="/itemdetails">
   <ItemDetail/>
   </Route>
-  <Route exact path="/checkout">
+  <Route path="/checkout">
   <Checkout/>
   </Route>
-  <Route exact path="/booktable">
+  <Route path="/booktable">
   <BookTable/>
   </Route>
-  <Route exact path="/menu">
+  <Route path="/menu">
   <Menu/>
   </Route>
-  <Route exact path="/admin">
+  <Route path="/admin">
   <Admin/>
   </Route>
-  <Route exact path="/userinfo">
+  <Route path="/userinfo">
   <User/>
+  </Route>
+  <Route path="/logout">
+  <Logout/>
   </Route>
   <Route>
   <ErrorPage/>
